@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    username: root
+    password: 1050629507@QQ.com
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.52.133.251:3306/project_data?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+  jpa:
+    show-sql: true
+server:
+  servlet:
+    context-path: /SpringBootSell
+  port: 8081
+logging:
+  level:
+    com.lzhs: trace
+  path: ../SpringBootSell/logs
+
