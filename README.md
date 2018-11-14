@@ -26,8 +26,7 @@ create table order_detail
   update_time      timestamp default CURRENT_TIMESTAMP not null
   on update CURRENT_TIMESTAMP
   comment '修改时间',
-  constraint idx_order_id
-  unique (order_id)
+  unique (detail_id)
 )
   comment '订单详情表';
 
@@ -48,15 +47,14 @@ create table order_master
   comment '订单总金额',
   order_status  tinyint(3) default '0'              not null
   comment '订单状态，0代表默认新订单',
-  pay_stayus    tinyint(3) default '0'              not null
+  pay_status    tinyint(3) default '0'              not null
   comment '支付状态 0代表默认值未支付',
   create_time   timestamp default CURRENT_TIMESTAMP not null
   comment '创建时间',
   update_time   timestamp default CURRENT_TIMESTAMP not null
   on update CURRENT_TIMESTAMP
   comment '修改时间',
-  constraint idx_buyer_openid
-  unique (buyer_openid)
+  unique (order_id)
 )
   comment '订单主表';
 

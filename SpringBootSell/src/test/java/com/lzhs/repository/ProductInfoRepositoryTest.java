@@ -40,7 +40,7 @@ public class ProductInfoRepositoryTest {
     public void save() {
         ProductInfo productInfo = new ProductInfo();
         productInfo.setProductId("12312412");
-        productInfo.setProdcutName("皮蛋瘦肉粥");
+        productInfo.setProductName("皮蛋瘦肉粥");
         productInfo.setProductPrice(new BigDecimal(23.5));
         productInfo.setProductStock(128);
         productInfo.setProductDescription("养生壮阳的粥");

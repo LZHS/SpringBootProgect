@@ -1,7 +1,7 @@
 package com.lzhs.services;
 
-import com.lzhs.data_object.ProductCategory;
 import com.lzhs.data_object.ProductInfo;
+import com.lzhs.dto.CartDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -27,6 +27,7 @@ public interface ProductService {
 
     /**
      * 查询所有商品
+     *
      * @param pageable
      * @return
      */
@@ -34,7 +35,19 @@ public interface ProductService {
 
     ProductInfo save(ProductInfo productInfo);
 
-    // TODO: 2018/11/8   1.添加库存  2.减少库存
+    /**
+     * 添加库存
+     *
+     * @param cartDTOS
+     */
+    void increaseStock(List<CartDTO> cartDTOS);
+
+    /**
+     * 减少库存
+     *
+     * @param cartDTOS
+     */
+    void decreaseStock(List<CartDTO> cartDTOS);
 
 
 }

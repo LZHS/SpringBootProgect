@@ -42,11 +42,9 @@ public class ProductServiceImplTest {
     @Test
     public void findAll() {
         PageRequest pageRequest = PageRequest.of(0, 2);
-       Page<ProductInfo> productInfoPage = productService.findAll(pageRequest);
-       log.info("getTotalElements = {} ",productInfoPage.getTotalElements());
+        Page<ProductInfo> productInfoPage = productService.findAll(pageRequest);
+        log.info("getTotalElements = {} ", productInfoPage.getTotalElements());
+        Assert.assertNotEquals(0, productInfoPage.getTotalElements());
     }
 
-    @Test
-    public void save() {
-    }
 }
