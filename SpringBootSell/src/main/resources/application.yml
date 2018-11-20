@@ -6,6 +6,8 @@ spring:
     url: jdbc:mysql://47.110.55.76:3306/project_data?useUnicode=true&characterEncoding=UTF-8&useSSL=false
   jpa:
     show-sql: true
+  jackson:
+    default-property-inclusion: non_null
 server:
   servlet:
     context-path: /SpringBootSell
@@ -15,3 +17,6 @@ logging:
     com.lzhs: trace
   path: ../SpringBootSell/logs
 
+wechat:
+  appId: wx68ab0fd5d2f2332a
+  appSecret: 667d7bd47c93df6e238f2c92fc6bcbca

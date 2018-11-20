@@ -1,6 +1,7 @@
 package com.lzhs.utils;
 
 import com.lzhs.VO.ResultVO;
+import com.lzhs.enums.ResultEnum;
 
 /**
  * Description: 描述 <br/>
@@ -24,5 +25,9 @@ public class ResultVOUtil {
         resultVO.setCode(code);
         resultVO.setMsg(msg);
         return resultVO;
+    }
+
+    public static ResultVO error(ResultEnum resultEnum) {
+        return error(resultEnum.getCode(), resultEnum.getMsg());
     }
 }

@@ -14,8 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.*;
-
 /**
  * Description: 描述 <br/>
  * Author: LZHS <br/>
@@ -32,7 +30,7 @@ public class OrderMasterRepositoryTest {
     @Test
     public void findByBuyerOpenid() {
         PageRequest pageRequest = PageRequest.of(0, 20);
-        Page<OrderMaster> masterPage = repository.findByBuyerOpenid("1234abcd", pageRequest);
+        Page<OrderMaster> masterPage = repository.findByBuyerOpenid("ew3euwhd7sjw9diwkq", pageRequest);
         Assert.assertNotEquals(masterPage.getTotalElements(),0);
     }
 

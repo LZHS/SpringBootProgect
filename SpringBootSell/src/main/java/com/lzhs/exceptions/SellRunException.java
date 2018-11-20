@@ -10,9 +10,16 @@ import com.lzhs.enums.ResultEnum;
  */
 public class SellRunException extends RuntimeException {
     private int code;
+
     public SellRunException(ResultEnum resultEnum) {
         super(resultEnum.getMsg());
         this.code = resultEnum.getCode();
     }
+
+    public SellRunException(int code, String errMsg) {
+        super(errMsg);
+        this.code = code;
+    }
+
 
 }

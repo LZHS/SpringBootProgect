@@ -1,0 +1,18 @@
+[2018-11-19 17:36:32.840] | [ERROR] | [liuchendeMacBook-Pro.local] | [restartedMain] | [o.s.b.d.LoggingFailureAnalysisReporter] | --> 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Configuration property name 'WeChat' is not valid:
+
+    Invalid characters: 'W', 'C'
+    Bean: wechatAccountMpConfig
+    Reason: Canonical names should be kebab-case ('-' separated), lowercase alpha-numeric characters and must start with a letter
+
+Action:
+
+Modify 'WeChat' so that it conforms to the canonical names requirements.
+|

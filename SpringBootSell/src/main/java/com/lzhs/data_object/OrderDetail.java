@@ -1,5 +1,7 @@
 package com.lzhs.data_object;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.lzhs.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -51,10 +53,12 @@ public class OrderDetail {
     /**
      * 该商品记录创建时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date createTime;
     /**
      * 商品最后修改时间
      */
+    @JsonSerialize(using = Date2LongSerializer.class)
     private Date updateTime;
 
 }

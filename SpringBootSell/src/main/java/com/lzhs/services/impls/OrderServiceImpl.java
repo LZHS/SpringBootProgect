@@ -103,19 +103,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderDTO cancel(OrderDTO orderDTO) {
-        log.info("【取消订单】orderId = {} ; orderStatus = {} ; 订单中的商品详情 = {}"
-                , orderDTO.getOrderId(), orderDTO.getOrderStatus(), orderDTO.getOrderDetailList());
+        log.info("【取消订单】{}", orderDTO);
         //1.判断订单状态是否存在并且是否为新订单状态
-        Optional<OrderMaster> orderMaster = masterRepository.findById(orderDTO.getOrderId());
-        if (!orderMaster.isPresent()) throw new SellRunException(ResultEnum.ORDER_NOT_EXIST);
-        List<OrderDetail> orderDetails = detailRepository.findByOrderId(orderMaster.get().getOrderId());
-        if (orderDetails.size() == 0) throw new SellRunException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
-        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode()))
-            throw new SellRunException(ResultEnum.ORDER_STATUS_ERROR);
+        OrderMaster orderMaster = checkOrder(orderDTO);
         //2.修改订单状态
         orderDTO.setOrderStatus(OrderStatusEnum.CANCEL.getCode());
-        BeanUtils.copyProperties(orderDTO,orderMaster.get());
-        OrderMaster saveResult = masterRepository.save(orderMaster.get());
+        orderMaster.setOrderStatus(OrderStatusEnum.CANCEL.getCode());
+        OrderMaster saveResult = masterRepository.save(orderMaster);
         if (saveResult == null) throw new SellRunException(ResultEnum.ORDER_UPDATE_STATUS_FAIL);
         //3.返回库存
         productService.increaseStock(orderDTO.getOrderDetailList().stream()
@@ -129,12 +123,42 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Optional<OrderDTO> finish(OrderDTO orderDTO) {
-        return Optional.empty();
+    @Transactional
+    public OrderDTO finish(OrderDTO orderDTO) {
+        log.info("【完结订单信息】{}", orderDTO);
+        // 判断订单状态
+        OrderMaster orderMaster = checkOrder(orderDTO);
+        //修改订单状态
+        orderDTO.setOrderStatus(OrderStatusEnum.FINISH.getCode());
+        orderMaster.setOrderStatus(OrderStatusEnum.FINISH.getCode());
+        OrderMaster saveResult = masterRepository.save(orderMaster);
+        if (saveResult == null) throw new SellRunException(ResultEnum.ORDER_UPDATE_STATUS_FAIL);
+        return orderDTO;
     }
 
     @Override
-    public Optional<OrderDTO> paid(OrderDTO orderDTO) {
-        return Optional.empty();
+    @Transactional
+    public OrderDTO paid(OrderDTO orderDTO) {
+        log.info("【支付订单】{}", orderDTO);
+        // 判断订单状态
+        OrderMaster orderMaster = checkOrder(orderDTO);
+        if (!orderDTO.getPayStatus().equals(PayStatusEnum.WAIT))
+            throw new SellRunException(ResultEnum.ORDER_PAY_STATUS_ERROR);
+        orderDTO.setPayStatus(PayStatusEnum.SUCCESS.getCode());
+        orderMaster.setPayStatus(PayStatusEnum.SUCCESS.getCode());
+        OrderMaster saveResult = masterRepository.save(orderMaster);
+        if (saveResult == null) throw new SellRunException(ResultEnum.ORDER_PAY_UPDATE_STATUS_FAIL);
+        return orderDTO;
     }
+
+    private OrderMaster checkOrder(OrderDTO orderDTO) {
+        Optional<OrderMaster> orderMaster = masterRepository.findById(orderDTO.getOrderId());
+        if (!orderMaster.isPresent()) throw new SellRunException(ResultEnum.ORDER_NOT_EXIST);
+        List<OrderDetail> orderDetails = detailRepository.findByOrderId(orderMaster.get().getOrderId());
+        if (orderDetails.size() == 0) throw new SellRunException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
+        if (!orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getCode()))
+            throw new SellRunException(ResultEnum.ORDER_STATUS_ERROR);
+        return orderMaster.get();
+    }
+
 }

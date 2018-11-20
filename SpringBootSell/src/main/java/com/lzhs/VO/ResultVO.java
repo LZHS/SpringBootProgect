@@ -9,17 +9,18 @@ import lombok.Data;
  * Time: 2018/11/12 : 10:04 PM<br/>
  */
 @Data
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultVO<T> {
     /**
      * 错误码
      */
-    private int code;
+    private int code = 0;
     /**
      * 错误提示信息
      */
-    private String msg;
+    private String msg = "";
     /**
      * 返回具体数据信息
      */
-    private  T data;
+    private T data;
 }

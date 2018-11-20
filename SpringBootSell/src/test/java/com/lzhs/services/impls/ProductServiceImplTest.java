@@ -2,6 +2,7 @@ package com.lzhs.services.impls;
 
 import com.lzhs.data_object.ProductInfo;
 import com.lzhs.enums.ProductStatusEnum;
+import com.lzhs.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,12 +26,12 @@ import java.util.List;
 @Slf4j
 public class ProductServiceImplTest {
     @Autowired
-    ProductServiceImpl productService;
+    ProductService productService;
 
     @Test
     public void findOne() {
-        ProductInfo resule = productService.findOne("223");
-        Assert.assertEquals(null, resule);
+        ProductInfo resule = productService.findOne("21b4ff39bf744d9a84b2372d5069d057");
+        Assert.assertNotNull( resule);
     }
 
     @Test

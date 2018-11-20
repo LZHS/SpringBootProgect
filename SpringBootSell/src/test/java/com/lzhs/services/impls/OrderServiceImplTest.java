@@ -29,11 +29,11 @@ public class OrderServiceImplTest {
     @Autowired
     OrderServiceImpl orderService;
 
-    final static String ORDER_ID = "e4fb5857697d4984b7e0d38de94532eb", BUYER_OPEN_ID = "123456LZHS";
+    final static String ORDER_ID = "6496cc6d091d42d3a50733943d919310", BUYER_OPEN_ID = "ew3euwhd7sjw9diwkq";
 
     @Test
     @Transactional
-    public void create() throws Exception {
+    public void create() {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setBuyerAddress("成都市高新区");
         orderDTO.setBuyerIphone("12345678901");
@@ -73,16 +73,22 @@ public class OrderServiceImplTest {
     public void cancel() {
         OrderDTO orderDTO = orderService.cancel(orderService.findById(ORDER_ID));
         log.info("【取消订单】 result = {}", orderDTO);
-        Integer integer = orderDTO.getOrderDetailList().stream().map(orderDetail -> orderDetail.getProductQuantity()).reduce(0, (val1, val2) -> val1 + val2);
         Assert.assertNotNull(orderDTO);
-        Assert.assertNotEquals(0,integer.intValue());
     }
 
     @Test
+    @Transactional
     public void finish() {
+        OrderDTO orderDTO = orderService.cancel(orderService.findById(ORDER_ID));
+        log.info("【完结订单】 result = {}", orderDTO);
+        Assert.assertNotNull(orderDTO);
+
     }
 
     @Test
     public void paid() {
+        OrderDTO orderDTO = orderService.cancel(orderService.findById(ORDER_ID));
+        log.info("【支付订单】 result = {}", orderDTO);
+        Assert.assertNotNull(orderDTO);
     }
 }
