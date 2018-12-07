@@ -23,9 +23,13 @@ public interface OrderService {
     OrderDTO findById(String orderId);
 
     /**
-     * 查询所以订单
+     * 查询该商户所有订单
      */
     Page<OrderDTO> findByBuyerOpenid(String buyerOpenid, Pageable pageable);
+    /**
+     * 查询所有订单
+     */
+    Page<OrderDTO> findByBuyerAll(Pageable pageable);
 
     /**
      * 取消订单

@@ -46,8 +46,11 @@ public class OrderServiceImplTest {
         OrderDetail orderDetail2 = new OrderDetail();
         orderDetail2.setProductId("9bd52a8353a241b18c8b4186b90d966e");
         orderDetail2.setProductQuantity(11);
+        OrderDetail orderDetail3 = new OrderDetail();
+        orderDetail3.setProductId("5655553af2c84f5fa910eedcf91474cd");
+        orderDetail3.setProductQuantity(5);
 
-        orderDTO.setOrderDetailList(Arrays.asList(orderDetail1, orderDetail2));
+        orderDTO.setOrderDetailList(Arrays.asList(orderDetail2,orderDetail3));
         OrderDTO result = orderService.create(orderDTO);
         log.info("【创建一个订单】result {}", result);
         Assert.assertNotNull(result);
@@ -64,6 +67,13 @@ public class OrderServiceImplTest {
     @Test
     public void findByBuyerOpenid() {
         Page<OrderDTO> dtoPage = orderService.findByBuyerOpenid(BUYER_OPEN_ID, PageRequest.of(0, 20));
+        log.info("【根据用户ID 查询订单】 result = {}", dtoPage.getContent());
+        Assert.assertNotEquals(0, dtoPage.getTotalElements());
+    }
+
+    @Test
+    public void findByBuyerAll() {
+        Page<OrderDTO> dtoPage = orderService.findByBuyerAll(PageRequest.of(0, 20));
         log.info("【根据用户ID 查询订单】 result = {}", dtoPage.getContent());
         Assert.assertNotEquals(0, dtoPage.getTotalElements());
     }

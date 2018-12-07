@@ -1,15 +1,16 @@
 package com.lzhs.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.lzhs.data_object.OrderDetail;
+import com.lzhs.enums.OrderStatusEnum;
+import com.lzhs.enums.PayStatusEnum;
 import com.lzhs.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Description: 与订单表与之对应的商品表 <br/>
@@ -22,35 +23,35 @@ public class OrderDTO {
     /**
      * 订单ID
      */
-    private String orderId="";
+    private String orderId = "";
     /**
      * 买家姓名
      */
-    private String buyerName="";
+    private String buyerName = "";
     /**
      * 买家电话
      */
-    private String buyerIphone="";
+    private String buyerIphone = "";
     /**
      * 买家地址
      */
-    private String buyerAddress="";
+    private String buyerAddress = "";
     /**
      * 买家微信
      */
-    private String buyerOpenid="";
+    private String buyerOpenid = "";
     /**
      * 订单总金额
      */
-    private BigDecimal orderAmount=new BigDecimal(BigInteger.ZERO);
+    private BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
     /**
      * 订单状态，0代表默认新订单
      */
-    private Integer orderStatus=0;
+    private Integer orderStatus = 0;
     /**
      * 支付状态 0代表默认值未支付
      */
-    private Integer payStatus=0;
+    private Integer payStatus = 0;
 
     /**
      * 该商品记录创建时间
@@ -65,5 +66,22 @@ public class OrderDTO {
     /**
      * 该订单对应的商品列表
      */
-    private List<OrderDetail> orderDetailList=new ArrayList<>();
+    private List<OrderDetail> orderDetailList = new ArrayList<>();
+
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+        Optional<OrderStatusEnum> statusEnum = Arrays.stream(OrderStatusEnum.values())
+                .filter(orderStatusEnum -> orderStatusEnum.getCode() == orderStatus)
+                .findFirst();
+        return statusEnum.isPresent() ? statusEnum.get() : null;
+    }
+
+    @JsonIgnore
+
+    public PayStatusEnum getPayStatusEnum() {
+        Optional<PayStatusEnum> anEnum = Arrays.stream(PayStatusEnum.values())
+                .filter(payStatusEnum -> payStatusEnum.getCode() == payStatus)
+                .findFirst();
+        return anEnum.isPresent() ? anEnum.get() : null;
+    }
 }

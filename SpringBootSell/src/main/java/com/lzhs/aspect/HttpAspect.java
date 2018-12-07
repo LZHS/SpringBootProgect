@@ -34,12 +34,19 @@ public class HttpAspect {
     public Object around(ProceedingJoinPoint point) throws Throwable {
         String uuid = KeyUtil.genUniqueKey();
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        log.info("\n\t请求标识: {}\n\t请求IP: {}\n\t请求路径: {}\n\t请求方式: {}\n\t方法描述: {}\n\t请求参数: {}", uuid, request.getRemoteAddr(), request.getRequestURL(), request.getMethod(), getMethodInfo(point), JSON.toJSONString(request.getParameterMap(), true));
+        log.info("\n\t【请求标识:】 {}" +
+                "\n\t【请求IP: 】{}" +
+                "\n\t【请求路径:】 {}" +
+                "\n\t【请求方式:】 {}" +
+                "\n\t【方法描述:】 {}" +
+                "\n\t【请求参数: 】{}", uuid, request.getRemoteAddr(), request.getRequestURL(), request.getMethod(), getMethodInfo(point), JSON.toJSONString(request.getParameterMap(), true));
         long startTime = System.currentTimeMillis();
         Object[] args = point.getArgs();
         Object retVal = point.proceed(args);
         long endTime = System.currentTimeMillis();
-        log.info("\n\t请求标识: {} \n\t执行时间: {} ms \n\t返回值: {}", uuid, endTime - startTime, JSON.toJSONString(retVal, true));
+        log.info("\n\t【请求标识:】{} " +
+                "\n\t【执行时间:】 {} ms " +
+                "\n\t【返回值:】 {}", uuid, endTime - startTime, JSON.toJSONString(retVal, true));
         return retVal;
     }
 

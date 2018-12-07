@@ -10,11 +10,12 @@ import lombok.Getter;
  */
 @Getter
 public enum ResultEnum {
-    /////////////   普通状态码 0 ~ 1000    ///////////////
+    /////////////   普通状态码 0 ~ 500    ///////////////
     OK(0, "成功"),
     PARAM_ERROR(1, "参数错误"),
-    PARAM_CART_ERROR(2, "购物车信息为空"),
-    PARAM_NOT_JURISDICTION_ERROR(3, "当前用户无权操作该订单"),
+    /////////////   购物车相关信息 500 ~ 1000    ///////////////
+    PARAM_CART_ERROR(501, "购物车信息为空"),
+    PARAM_NOT_JURISDICTION_ERROR(502, "当前用户无权操作该订单"),
     /////////////   产品状态码 1000 ~ 1500    ///////////////
     PRODUCT_NOT_EXIST(1001, "该商品不存在"),
     PRODUCT_STOCK_ERROR(1002, "该商品库存不足"),

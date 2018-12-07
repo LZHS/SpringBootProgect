@@ -101,6 +101,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Page<OrderDTO> findByBuyerAll(Pageable pageable) {
+        Page<OrderMaster> all = masterRepository.findAll(pageable);
+        List<OrderDTO> dtoList = OrderMaster2OrderDTOConverter.convert(all.getContent());
+        return new PageImpl<>(dtoList, pageable, all.getTotalElements());
+    }
+
+    @Override
     @Transactional
     public OrderDTO cancel(OrderDTO orderDTO) {
         log.info("【取消订单】{}", orderDTO);

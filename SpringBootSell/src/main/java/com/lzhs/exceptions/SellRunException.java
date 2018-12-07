@@ -1,6 +1,7 @@
 package com.lzhs.exceptions;
 
 import com.lzhs.enums.ResultEnum;
+import lombok.Getter;
 
 /**
  * Description: 描述 <br/>
@@ -8,6 +9,7 @@ import com.lzhs.enums.ResultEnum;
  * Email: 1050629507@qq.com <br/>
  * Time: 2018/11/14 : 3:47 PM<br/>
  */
+@Getter
 public class SellRunException extends RuntimeException {
     private int code;
 
